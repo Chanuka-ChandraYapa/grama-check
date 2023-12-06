@@ -11,10 +11,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         // signInRedirectURL: "http://localhost:3000",
         // signOutRedirectURL: "http://localhost:3000",
         signInRedirectURL:
-          "https://ec540c3d-52b5-4f95-8be2-e30f22cbdbc7.e1-us-east-azure.choreoapps.dev",
+          "http://localhost:3000",
         signOutRedirectURL:
-          "https://ec540c3d-52b5-4f95-8be2-e30f22cbdbc7.e1-us-east-azure.choreoapps.dev",
-        clientID: "6ZX7RT5D7yFhefksvrk4g9O0EEAa",
+          "http://localhost:3000",
+        clientID: "ufGfDEvOxuCRhDPL15fk1KFQHBQa",
         baseUrl: "https://api.asgardeo.io/t/thivaorg",
         scope: ["openid", "profile"],
       }}
