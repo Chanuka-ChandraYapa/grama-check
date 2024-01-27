@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="bg-white bg-opacity-25 dark:bg-gray-800 fixed-bottom w-full">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span className="text-sm text-white block text-center mb-2 sm:mb-0 dark:text-gray-400 sm:inline">
-          © 2023{" "}
+          © 2024{" "}
           <a href="#" className="hover:underline">
             Grama-Check
           </a>

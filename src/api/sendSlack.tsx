@@ -29,4 +29,7 @@ export const performSendSlack = async (token: string, nic: string, message: stri
       throw error;
     }
   };
+
+//   export const performSendSlackWithoutToken = async (message: string) => {
+//   };
   

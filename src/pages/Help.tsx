@@ -5,28 +5,36 @@ import { Helmet } from "react-helmet";
 import FooterLayout from "../layouts/footerLayout";
 import { Element } from "react-scroll";
 import { useStatusItems } from "../utils/statusContext";
+import { useAuthContext } from "@asgardeo/auth-react";
 import { performSendSlack } from "../api/sendSlack";
+import { Spinner } from "flowbite-react";
 
 
 
 const Help: React.FC = () => {
   const [message, setMessage] = useState("");
   const { token, decodedToken } = useStatusItems();
+  const { signIn } = useAuthContext();
   const [serror, setSerror] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
 
   const handleSubmit = async () => {
     try {
 
+      setLoading(true)
       let sendSlack;
 
       try {
         if (token !== null) {
           sendSlack = await performSendSlack(token, decodedToken?.nic, message);
-          console.log("Slack Service Response:", sendSlack);        
+          console.log("Slack Service Response:", sendSlack); 
+          setSerror(false)       
         } else {
           console.error("Token is null");
-          setSerror(true);
+          signIn()
+          setSerror(false) 
         }
       } catch (error) {
         console.error("Error in component:", error);
@@ -34,6 +42,8 @@ const Help: React.FC = () => {
       }
     } catch (error: any) {
       console.error("Error:", error.message);
+    }finally {
+      setLoading(false)
     }
   }
   return (
@@ -55,6 +65,7 @@ const Help: React.FC = () => {
                 />
               </div>
               {/* Right Col */}
+              {decodedToken?.app_role_gdki != "GramaNiladhari" ? (
               <div className="text-gray-600 flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                 <h1 className="my-4 text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-4xl font-bold leading-tight mx-auto">
                   How This Works
@@ -62,16 +73,34 @@ const Help: React.FC = () => {
                 <div className="w-full mb-4">
                   <div className="h-1 mx-auto bg-gray-600 w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
                 </div>
-                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto">
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
                   Register to our System By Clicking Get Started
                 </p>
-                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto">
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
                   Fill the Form in the Apply Tab
                 </p>
-                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto">
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
                   Check the Status of Your Request on the Status Tab
                 </p>
+              </div>):(
+                <div className="text-gray-600 flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+                <h1 className="my-4 text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-4xl font-bold leading-tight mx-auto">
+                  How This Works
+                </h1>
+                <div className="w-full mb-4">
+                  <div className="h-1 mx-auto bg-gray-600 w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+                </div>
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
+                  Access all the divisional certificate requests from the Certificate tab
+                </p>
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
+                  Click view button to review the certificates
+                </p>
+                <p className="leading-normal text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-4 mx-auto text-center">
+                  Check the Status and accept or decline the requests according to the guidelines
+                </p>
               </div>
+              )}
             </div>
           </div>
         </FadeInTransition>
@@ -117,7 +146,12 @@ const Help: React.FC = () => {
                   type="submit"
                   className="mt-16 mx-auto block bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                 >
-                  Submit
+                  <div className="items-center justify-between">
+                    Submit
+                    {loading &&
+                      <Spinner className="ml-4" color="info" aria-label="Info spinner example" />
+                    }
+                  </div>
                 </button>
               </div>
             </form>

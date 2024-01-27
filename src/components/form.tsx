@@ -5,6 +5,7 @@ import { performIdCheck } from "../api/IdCheck";
 import { performAddressCheck } from "../api/addressCheck";
 import { performSaveStatus } from "../api/savestatus";
 import { performSendTwilio } from "../api/sendTwilio";
+import { Spinner } from "flowbite-react";
 
 const Form: React.FC = () => {
   const [nic, setNic] = useState("");
@@ -12,6 +13,7 @@ const Form: React.FC = () => {
   const [name, setName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [serror, setSerror] = useState(false);
   const [policeCheckStatus, setPoliceCheckStatus] = useState<string | null>(
     null
@@ -25,6 +27,7 @@ const Form: React.FC = () => {
   const handleSubmit = async () => {
     try {
       setProcessing(true);
+      setLoading(true)
       setSerror(false);
       console.log("Access Token:", token);
       setPoliceCheckStatus(null);
@@ -158,6 +161,7 @@ const Form: React.FC = () => {
       console.error("Error:", error.message);
     } finally {
       setProcessing(false);
+      setLoading(false)
     }
   };
 
@@ -254,7 +258,12 @@ const Form: React.FC = () => {
             type="submit"
             className="mt-16 mx-auto block bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
           >
+            <div className="items-center justify-between">
             Submit
+            {loading &&
+              <Spinner className="ml-4" color="info" aria-label="Info spinner example" />
+            }
+            </div>
           </button>
         </div>
       </form>

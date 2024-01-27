@@ -74,7 +74,7 @@ const Certificate: React.FC = () => {
   //   ],
   // };
   const { token, decodedToken, updateStatusItems } = useStatusItems();
-  // const [serror, setSerror] = useState(false);
+  const [serror, setSerror] = useState(false);
   const getStatus = async () => {
     (async (): Promise<void> => {
       let getStatusResponse;
@@ -87,17 +87,17 @@ const Certificate: React.FC = () => {
           console.log("get status response: ", getStatusResponse);
           updateStatusItems(mapApiToStatusItems2(getStatusResponse));
           setOverallStatus(mapApiToStatusItems(getStatusResponse));
-          // setSerror(false);
+          setSerror(false);
           console.log("grama division", decodedToken?.grama_division);
           console.log("response", overallStatus);
           console.log("overall Status", overallStatus);
         } else {
           console.error("Token is null");
-          // setSerror(true);
+          setSerror(true);
         }
       } catch (error) {
         console.error("Error in component:", error);
-        // setSerror(true);
+        setSerror(true);
       }
     })();
   };
@@ -201,9 +201,16 @@ const Certificate: React.FC = () => {
         {overallStatus ? (
           <StatusTable entries={overallStatus} />
         ) : (
+          <>
           <h1 className="my-4 text-gray-500 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
             No Certificates in the database.
           </h1>
+          {serror && (
+            <h1 className="my-4 text-red-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
+              Oops! Something Went Wrong. Try Again
+            </h1>
+          )}
+          </>
         )}
       </FadeInTransition>
     </div>

@@ -143,6 +143,11 @@ const Navbar: React.FC = () => {
                         </Link>
                       </div>
                       <div className="hover:scale-105 transform transition duration-300 ease-in-out">
+                        <Link to="/profile" className="block text-gray-800 py-2">
+                          Profile
+                        </Link>
+                      </div>
+                      <div className="hover:scale-105 transform transition duration-300 ease-in-out">
                         {/* <Link to="/help" className="block text-gray-800 py-2"> */}
                         <ScrollLink
                           to="section1"
@@ -169,6 +174,7 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                   <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div className="hidden md:block">
                     <Link to="/profile">
                       <Avatar
                         img="/images/profile.jpg"
@@ -177,6 +183,7 @@ const Navbar: React.FC = () => {
                         className="mr-4 lg:mr-8 xl:mr-8"
                       />
                     </Link>
+                    </div>
                     <button
                       type="button"
                       className="text-gray-800 bg-white hover:bg-white focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out font-medium rounded-full text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -349,11 +356,11 @@ const Navbar: React.FC = () => {
                           Certificates
                         </Link>
                       </div>
-                      {/* <div className="hover:scale-105 transform transition duration-300 ease-in-out">
-                        <Link to="/status" className="block text-gray-800 py-2">
-                          Status
+                      <div className="hover:scale-105 transform transition duration-300 ease-in-out">
+                        <Link to="/profile" className="block text-gray-800 py-2">
+                          Profile
                         </Link>
-                      </div> */}
+                      </div>
                       <div className="hover:scale-105 transform transition duration-300 ease-in-out">
                         {/* <Link to="/help" className="block text-gray-800 py-2"> */}
                         <ScrollLink
@@ -381,6 +388,8 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                   <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div className="self-center mr-4 lg:mr-8 xl:mr-8">Admin</div>
+                    <div className="hidden md:block">
                     <Link to="/profile">
                       <Avatar
                         img="/images/profile.jpg"
@@ -389,6 +398,7 @@ const Navbar: React.FC = () => {
                         className="mr-4 lg:mr-8 xl:mr-8"
                       />
                     </Link>
+                    </div>
                     <button
                       type="button"
                       className="text-gray-800 bg-white hover:bg-white focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out font-medium rounded-full text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
