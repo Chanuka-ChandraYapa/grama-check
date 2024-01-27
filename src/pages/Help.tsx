@@ -4,11 +4,38 @@ import Footer from "../components/footer";
 import { Helmet } from "react-helmet";
 import FooterLayout from "../layouts/footerLayout";
 import { Element } from "react-scroll";
+import { useStatusItems } from "../utils/statusContext";
+import { performSendSlack } from "../api/sendSlack";
+
 
 
 const Help: React.FC = () => {
-  const [name, setName] = useState("");
-  const handleSubmit = async () => {}
+  const [message, setMessage] = useState("");
+  const { token, decodedToken } = useStatusItems();
+  const [serror, setSerror] = useState(false);
+
+
+  const handleSubmit = async () => {
+    try {
+
+      let sendSlack;
+
+      try {
+        if (token !== null) {
+          sendSlack = await performSendSlack(token, decodedToken?.nic, message);
+          console.log("Slack Service Response:", sendSlack);        
+        } else {
+          console.error("Token is null");
+          setSerror(true);
+        }
+      } catch (error) {
+        console.error("Error in component:", error);
+        setSerror(true);
+      }
+    } catch (error: any) {
+      console.error("Error:", error.message);
+    }
+  }
   return (
     <>
       {/* <BodyLayout> */}
@@ -52,7 +79,7 @@ const Help: React.FC = () => {
       <Element name="section2" className="element">
         <FadeInTransition>
           <div className="p-16">
-            <div className=" py-8 px-16 w-full content-center items-start text-center md:text-left">
+            <div className=" py-8 px-4 w-full content-center items-start text-center md:text-left">
               <h1 className=" text-gray-600 my-4 text-xl sm:text-2xl md:text-2xl lg:text-4xl xl:text-4xl font-bold leading-tight text-center">
                 Get the Support from One of Our Officers Through our Chat
               </h1>
@@ -64,19 +91,19 @@ const Help: React.FC = () => {
                 handleSubmit();
               }}
             >
-              <div className="p-8">
+              <div className="p-2 lg:p-8 xl:p-8">
                 <div className="relative z-0 w-full mb-5 group">
                   <textarea
                     rows={3} // Specifies the number of visible text lines
                     // cols={150} // Specifies the width of the textarea in characters
-                    value={name} // Specifies the initial value of the textarea
+                    value={message} // Specifies the initial value of the textarea
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder="" // Specifies a short hint that describes the expected value of the textarea
                     wrap="soft" // Specifies how the text in the textarea should be wrapped
                     name="name" // Specifies the name of the textarea, which can be used when submitting a form
                     minLength={150} // Specifies the minimum number of characters required in the textarea
                     maxLength={200} // Specifies the maximum number of characters allowed in the textarea
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setMessage(e.target.value)}
                   />
                   <label
                     htmlFor="floating_name"
@@ -94,6 +121,11 @@ const Help: React.FC = () => {
                 </button>
               </div>
             </form>
+            {serror && (
+              <h1 className="my-4 text-red-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
+                Oops! Something Went Wrong. Try Again
+              </h1>
+            )}
           </div>
         </FadeInTransition>
       </Element>
