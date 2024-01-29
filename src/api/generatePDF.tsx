@@ -17,7 +17,7 @@ export const generatePDF = (userdetails: UserDetails) => {
     const text = "Grama Nildhari Certificate";
     const textWidth = doc.getTextDimensions(text).w;
     const centerX = (doc.internal.pageSize.getWidth() - textWidth) / 2;
-    doc.text(text, centerX, 20);
+    doc.text(text, centerX, 30);
 
 
     const imageWidth = 90;
@@ -25,7 +25,7 @@ export const generatePDF = (userdetails: UserDetails) => {
     const pageWidth = doc.internal.pageSize.getWidth();
     const centerX_img = (pageWidth - imageWidth) / 2;
     const centerY_img = (doc.internal.pageSize.getHeight() - imageHeight) / 2;
-    doc.addImage("/images/sl_logo.png", "PNG", centerX_img, centerY_img - 30, imageWidth, imageHeight, "alias3", "FAST");
+    doc.addImage("/images/badge_1.png", "PNG", centerX_img, centerY_img - 30, imageWidth, imageHeight, "alias1", "FAST");
 
     doc.setFontSize(20);
     const text2 = `This is to certify that ${userdetails.user_name} of ${userdetails.user_address}\n has been registered as a resident of this Grama Niladhari Division.`;
@@ -44,12 +44,17 @@ export const generatePDF = (userdetails: UserDetails) => {
     const currentDate = new Date().toISOString().split('T')[0];
     const text3 = `Grama Niladhari Division: ${userdetails.grama_sevaka}\n\nDate of Issue: ${currentDate}`;
     doc.setFontSize(20);
-    doc.text(text3, 20, 180);
+    doc.text(text3, 20, 170);
 
     const text4 = `${userdetails.grama_niladhari_name}`;
-    doc.text(text4, 240, 195);
+    const text4Width = doc.getTextDimensions(text4).w;
+    const text4X = doc.internal.pageSize.getWidth() - text4Width - 20;
+    const text4Y = doc.internal.pageSize.getHeight() - 20;
+    doc.text(text4, text4X, text4Y);
 
-    doc.addImage("/images/sign.png", "PNG", 235, 170, 20, 20, "alias2", "SLOW");
+    doc.addImage("/images/sign.png", "PNG", 235, 160, 20, 20, "alias2", "SLOW");
+
+    doc.addImage("/images/back.png", "PNG", 0, 0, 297, 210, "alias3", "SLOW");
 
     doc.output('dataurlnewwindow');
 }
