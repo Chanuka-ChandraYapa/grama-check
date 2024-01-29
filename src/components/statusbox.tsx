@@ -34,7 +34,7 @@ const StatusBox: React.FC<StatusBoxProps> = ({
   // Define the click handler
   function handleDownloadClick() {
     // Logic to download the certificate goes here
-    generatePDF({"user_name": "John Doe", "user_address": "No. 123, Galle Road, Colombo 03", "grama_sevaka": "Bambalapitya", "grama_niladhari_name": "Joel"});
+    generatePDF({"user_name": "John Doe", "user_address": "No. 123, Galle Road, Colombo 03", "grama_sevaka": "Bambalapitya", "grama_niladhari_name": "Chanuka Chandrayapa"});
   }
   const handleApprove = async () => {
     try {
@@ -252,12 +252,12 @@ const StatusBox: React.FC<StatusBoxProps> = ({
                         version="1.1"
                         id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
                         width="25"
                         height="25"
                         viewBox="0 0 20 20"
                         enable-background="new 0 0 20 20"
-                        xml:space="preserve"
+                        xmlSpace="preserve"
                       >
                         <path d="M19,19H1c-0.6,0-1-0.4-1-1v-5h2v4h16v-4h2v5C20,18.6,19.6,19,19,19z" />
                         <path d="M15.7,7.3c-0.4-0.4-1-0.4-1.4,0L11,10.6V2c0-0.6-0.4-1-1-1S9,1.4,9,2v8.6L5.7,7.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5,5c0.4,0.4,1,0.4,1.4,0l5-5C16.1,8.3,16.1,7.7,15.7,7.3z" />
