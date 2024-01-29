@@ -47,8 +47,8 @@ const App: React.FC = () => {
         {/* <Route path="/apply" Component={Apply} /> */}
         {/* <Route path="/status" element={<Wrapper component={Status} />} /> */}
         <Route path="/status" Component={Status} />
-        <Route path="/profile" element={<Wrapper component={Profile} />} />
-        {/* <Route path="/profile" Component={Profile} /> */}
+        {/* <Route path="/profile" element={<Wrapper component={Profile} />} /> */}
+        <Route path="/profile" Component={Profile} />
         <Route path="/help" Component={Help} />
         {/* <Route path="/adminstatus" Component={Certificate} /> */}
         <Route
