@@ -7,16 +7,27 @@ import { performSendTwilio } from "../api/sendTwilio";
 import { performUpdateStatus } from "../api/updateStatus";
 import { useNavigate } from "react-router-dom";
 import { generatePDF } from "../api/generatePDF";
+import { performGetProfile } from "../api/getProfile";
 
 interface StatusBoxProps {
   certificateNumber: string;
+  userId: string;
   idCheckStatus: string;
   addressCheckStatus: string;
   policeCheckStatus: string;
   serror: boolean;
 }
+const initialProfileData = {
+  fullName: "John Doe",
+  phoneNumber: "123-456-7890",
+  nicNumber: "123456789X",
+  gramaDivision: "Example Grama",
+  address: "123 Main Street, City",
+};
+
 const StatusBox: React.FC<StatusBoxProps> = ({
   certificateNumber,
+  userId,
   idCheckStatus,
   addressCheckStatus,
   policeCheckStatus,
@@ -27,14 +38,46 @@ const StatusBox: React.FC<StatusBoxProps> = ({
   const { token, decodedToken, statusItems } = useStatusItems();
   const { certificateNo } = useParams<{ certificateNo: string }>();
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState(initialProfileData);
+  const [gramaName, setGramaName] = useState("Joel")
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
   // Define the click handler
-  function handleDownloadClick() {
+  const handleDownloadClick = async () => {
     // Logic to download the certificate goes here
-    generatePDF({"user_name": "John Doe", "user_address": "No. 123, Galle Road, Colombo 03", "grama_sevaka": "Bambalapitya", "grama_niladhari_name": "Chanuka Chandrayapa"});
+    let getProfile = await getProfileData();
+    console.log("this is the profile data", getProfile)
+    generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
+  }
+
+  const getProfileData = async () => {
+    console.log("Getting profile data");
+    (async (): Promise<void> => {
+      let getProfileDataResponse;
+      let getGramaProfileDataResponse;
+      try {
+        if (token != null) {
+          getProfileDataResponse = await performGetProfile(token, userId);
+          console.log("get profile data response: ", getProfileDataResponse);
+          setProfileData({
+            fullName: getProfileDataResponse.result.name,
+            phoneNumber: getProfileDataResponse.result.phone_no,
+            address: getProfileDataResponse.result.address,
+            gramaDivision: getProfileDataResponse.result.gramadevision,
+            nicNumber: getProfileDataResponse.result.id
+          })
+
+          getGramaProfileDataResponse = await performGetProfile(token, decodedToken?.nic);
+          console.log("get grama profile data response: ", getGramaProfileDataResponse);
+          setGramaName(getGramaProfileDataResponse.result.name)
+        }
+      } catch (error) {
+        console.log("Error in getting profile data: ", error)
+        alert("error generating the pdf")
+      }
+    })();
   }
   const handleApprove = async () => {
     try {
@@ -217,6 +260,9 @@ const StatusBox: React.FC<StatusBoxProps> = ({
             </button>
           </div>
         </div>
+      </div>
+      <div className ="text-sm sm:text-sm md:text-lg lg:text-xl xl:text-xl text-gray-600">
+        ID No : {userId}
       </div>
 
       {/* Additional content */}

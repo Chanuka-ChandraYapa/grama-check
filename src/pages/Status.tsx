@@ -5,7 +5,7 @@ import StatusBox from "../components/statusbox";
 import FadeInTransition from "../components/fadeInTrans";
 import Footer from "../components/footer";
 import { useStatusItems } from "../utils/statusContext";
-// import { performGetStatus } from "../api/getStatus";
+import { performGetStatus } from "../api/getStatus";
 
 interface ApiResponseItem {
   id: number;
@@ -20,41 +20,42 @@ interface ApiResult {
 }
 interface StatusItem {
   certificateNumber: string;
+  userId: string;
   idCheckStatus: string;
   addressCheckStatus: string;
   policeCheckStatus: string;
 }
 
-const apiResponseItems: ApiResponseItem[] = [
-  {
-    id: 1,
-    user_id: "123456789V",
-    police_check_status: 0,
-    id_check_status: 0,
-    address_check_status: 0,
-  },
-  {
-    id: 2,
-    user_id: "123456789V",
-    police_check_status: 1,
-    id_check_status: 1,
-    address_check_status: 1,
-  },
-  {
-    id: 3,
-    user_id: "123456789V",
-    police_check_status: 2,
-    id_check_status: 2,
-    address_check_status: 2,
-  },
-  {
-    id: 4,
-    user_id: "123456789V",
-    police_check_status: 3,
-    id_check_status: 3,
-    address_check_status: 3,
-  }
-];
+// const apiResponseItems: ApiResponseItem[] = [
+//   {
+//     id: 1,
+//     user_id: "123456789V",
+//     police_check_status: 0,
+//     id_check_status: 0,
+//     address_check_status: 0,
+//   },
+//   {
+//     id: 2,
+//     user_id: "123456789V",
+//     police_check_status: 1,
+//     id_check_status: 1,
+//     address_check_status: 1,
+//   },
+//   {
+//     id: 3,
+//     user_id: "123456756V",
+//     police_check_status: 2,
+//     id_check_status: 2,
+//     address_check_status: 2,
+//   },
+//   {
+//     id: 4,
+//     user_id: "123456789V",
+//     police_check_status: 3,
+//     id_check_status: 3,
+//     address_check_status: 3,
+//   }
+// ];
 
 // let statusItems: StatusItem[]
 const Status: React.FC = () => {
@@ -65,21 +66,21 @@ const Status: React.FC = () => {
 
   const getStatus = async () => {
     (async (): Promise<void> => {
-      // let getStatusResponse;
+      let getStatusResponse;
       try {
-        // if (token !== null) {
-        //   getStatusResponse = await performGetStatus(token, decodedToken?.nic);
-        //   console.log("get status response: ", getStatusResponse);
-        //   setStatusItems(mapApiToStatusItems(getStatusResponse));
-        //   // apiresp
+        if (token !== null) {
+          getStatusResponse = await performGetStatus(token, decodedToken?.nic);
+          console.log("get status response: ", getStatusResponse);
+          setStatusItems(mapApiToStatusItems(getStatusResponse));
+          // apiresp
 
-        //   setSerror(false);
-        //   console.log(statusItems);
-        // } else {
-        //   console.error("Token is null");
-        //   setSerror(true);
-        // }
-        setStatusItems(mapApiToStatusItems({ result: apiResponseItems }));
+          setSerror(false);
+          console.log(statusItems);
+        } else {
+          console.error("Token is null");
+          setSerror(true);
+        }
+        // setStatusItems(mapApiToStatusItems({ result: apiResponseItems }));
       } catch (error) {
         console.error("Error in component:", error);
         setSerror(true);
@@ -93,6 +94,7 @@ const Status: React.FC = () => {
   const mapApiToStatusItems = (apiResponse: ApiResult): StatusItem[] => {
     return apiResponse.result.map((apiItem) => ({
       certificateNumber: `Certificate #${apiItem.id}`,
+      userId: apiItem.user_id,
       idCheckStatus: mapStatus(apiItem.id_check_status),
       addressCheckStatus: mapStatus(apiItem.address_check_status),
       policeCheckStatus: mapStatus(apiItem.police_check_status),
@@ -130,6 +132,7 @@ const Status: React.FC = () => {
             <StatusBox
               key={index}
               certificateNumber={statusItem.certificateNumber}
+              userId = {statusItem.userId}
               idCheckStatus={statusItem.idCheckStatus}
               addressCheckStatus={statusItem.addressCheckStatus}
               policeCheckStatus={statusItem.policeCheckStatus}
