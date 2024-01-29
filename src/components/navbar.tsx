@@ -388,7 +388,9 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                   <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <div className="self-center mr-4 lg:mr-8 xl:mr-8">Admin</div>
+                    <div className="hidden md:block">
+                      <div className="self-center mr-4 lg:mr-8 xl:mr-8">Admin</div>
+                    </div>
                     <div className="hidden md:block">
                     <Link to="/profile">
                       <Avatar
