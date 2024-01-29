@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { performSendTwilio } from "../api/sendTwilio";
 import { performUpdateStatus } from "../api/updateStatus";
 import { useNavigate } from "react-router-dom";
+import { generatePDF } from "../api/generatePDF";
 
 interface StatusBoxProps {
   certificateNumber: string;
@@ -25,11 +26,16 @@ const StatusBox: React.FC<StatusBoxProps> = ({
   const [certificateStatus, setCertificateStatus] = useState("Declined");
   const { token, decodedToken, statusItems } = useStatusItems();
   const { certificateNo } = useParams<{ certificateNo: string }>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+  // Define the click handler
+  function handleDownloadClick() {
+    // Logic to download the certificate goes here
+    generatePDF({"user_name": "John Doe", "user_address": "No. 123, Galle Road, Colombo 03", "grama_sevaka": "Bambalapitya", "grama_niladhari_name": "Joel"});
+  }
   const handleApprove = async () => {
     try {
       if (token !== null) {
@@ -54,9 +60,8 @@ const StatusBox: React.FC<StatusBoxProps> = ({
             "0704215369"
           );
           console.log("twilio response: ", sendTwilio);
-        }
-        else{
-          console.log("Result is null")
+        } else {
+          console.log("Result is null");
         }
       } else {
         console.error("Token is null");
@@ -72,7 +77,7 @@ const StatusBox: React.FC<StatusBoxProps> = ({
           (item) => item.certificateNo === `${certificateNo}`
         );
         let id = certificateNo?.match(/(\d+)/);
-        
+
         if (result && id) {
           const saveStatusResponse = await performUpdateStatus(
             token,
@@ -232,10 +237,33 @@ const StatusBox: React.FC<StatusBoxProps> = ({
                 <p>Status: {policeCheckStatus}</p>
               </div>
               {decodedToken?.app_role_gdki != "GramaNiladhari" && (
-                <div className="col-span-2">
+                <div className="col-span-2 flex justify-between items-center">
                   <p className="text-lg font-bold mb-2">
                     {getOverallCertificateStatus()}
                   </p>
+                  {certificateStatus === "Approved" && (
+                    <button
+                      onClick={handleDownloadClick}
+                      className="download-button"
+                      title="Download the certificate"
+                    >
+                      <svg
+                        fill="#000000"
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="25"
+                        height="25"
+                        viewBox="0 0 20 20"
+                        enable-background="new 0 0 20 20"
+                        xml:space="preserve"
+                      >
+                        <path d="M19,19H1c-0.6,0-1-0.4-1-1v-5h2v4h16v-4h2v5C20,18.6,19.6,19,19,19z" />
+                        <path d="M15.7,7.3c-0.4-0.4-1-0.4-1.4,0L11,10.6V2c0-0.6-0.4-1-1-1S9,1.4,9,2v8.6L5.7,7.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5,5c0.4,0.4,1,0.4,1.4,0l5-5C16.1,8.3,16.1,7.7,15.7,7.3z" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               )}
               {decodedToken?.app_role_gdki == "GramaNiladhari" && (
