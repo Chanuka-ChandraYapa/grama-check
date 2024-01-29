@@ -1,8 +1,6 @@
 export const performPoliceCheck = async (
   token: string,
   nic: string,
-  name: string,
-  address: string
 ) => {
 
 
@@ -17,7 +15,7 @@ export const performPoliceCheck = async (
         Authorization: `Bearer ${token}`,
         accept: "application/json",
       },
-      body: JSON.stringify({ nic, name, address }),
+      body: JSON.stringify({ nic }),
     });
 
     if (!policeCheckResponse.ok) {

@@ -1,4 +1,4 @@
-export const performAddressCheck = async (token: string, nic: string, address:string) => {
+export const performAddressCheck = async (token: string, nic: string, land_no:string, street_name: string, grama_division_no: string) => {
   const addressCheckApiUrl =
     "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/address-check/endpoint-3000-197/v1.0/addressCheck";
 
@@ -10,7 +10,7 @@ export const performAddressCheck = async (token: string, nic: string, address:st
         Authorization: `Bearer ${token}`,
         accept: "application/json",
       },
-      body: JSON.stringify({ nic, address }),
+      body: JSON.stringify({ nic, land_no, street_name, grama_division_no }),
     });
 
     if (!addressCheckResponse.ok) {

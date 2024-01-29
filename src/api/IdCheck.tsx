@@ -1,6 +1,7 @@
 export const performIdCheck = async (
   token: string,
   nic: string,
+  name: string
 ) => {
   const idCheckApiUrl =
     "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramacheckidentitycheck/endpoint-7070-070/v1.1/nicCheck";
@@ -13,7 +14,7 @@ export const performIdCheck = async (
         Authorization: `Bearer ${token}`,
         accept: "application/json",
       },
-      body: JSON.stringify({ nic }),
+      body: JSON.stringify({ name, nic }),
     });
 
     if (!idCheckResponse.ok) {
