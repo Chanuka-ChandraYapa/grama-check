@@ -52,6 +52,7 @@ const EditCertificate: React.FC = () => {
       {searchResult ? (
         <StatusBox
           certificateNumber={searchResult.certificateNo}
+          userId={searchResult.nicNumber}
           idCheckStatus={searchResult.id_check_status}
           addressCheckStatus={searchResult.address_check_status}
           policeCheckStatus={searchResult.police_check_status}
