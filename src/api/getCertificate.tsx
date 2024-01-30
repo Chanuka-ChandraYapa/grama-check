@@ -1,8 +1,8 @@
 export const performgetCertificate = async (token: string, gramadevision: string) => {
   const getCertificateApiUrl =
     // "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1/getGramaDevisionUser";
-    "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0/getGSApplication";
-
+    // "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0/getGSApplication";
+      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-prod.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0/getGSApplication"
   try {
     const getCertificateResponse = await fetch(getCertificateApiUrl, {
       method: "POST",
