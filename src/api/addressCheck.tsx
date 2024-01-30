@@ -5,6 +5,8 @@ export const performAddressCheck = async (token: string, nic: string, land_no:st
     //  https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-prod.e1-us-east-azure.choreoapis.dev/gich/address-check/endpoint-3000-197/v1
      
   try {
+    console.log("Before calling the Address check api");
+    console.log(nic, land_no, street_name, grama_division_no);
     const addressCheckResponse = await fetch(addressCheckApiUrl, {
       method: "POST",
       headers: {
@@ -12,7 +14,12 @@ export const performAddressCheck = async (token: string, nic: string, land_no:st
         Authorization: `Bearer ${token}`,
         accept: "application/json",
       },
-      body: JSON.stringify({ "nic":nic, "land_no": land_no, "street_name": street_name, "grama_division_no": grama_division_no }),
+      body: JSON.stringify({
+        "grama_division_no": grama_division_no,
+        "land_no": land_no,
+        "nic": nic,
+        "street_name": street_name
+      }),
     });
 
     if (!addressCheckResponse.ok) {
