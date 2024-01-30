@@ -10,7 +10,7 @@ export const performAddressCheck = async (token: string, nic: string, land_no:st
         Authorization: `Bearer ${token}`,
         accept: "application/json",
       },
-      body: JSON.stringify({ nic, land_no, street_name, grama_division_no }),
+      body: JSON.stringify({ "nic":nic, "land_no": land_no, "street_name": street_name, "grama_division_no": grama_division_no }),
     });
 
     if (!addressCheckResponse.ok) {
