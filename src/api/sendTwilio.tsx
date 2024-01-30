@@ -1,6 +1,6 @@
 export const performSendTwilio = async (token: string, fromMobile: string, message: string, toMobile: string) => {
   const SendTwilioApiUrl =
-    "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/twilioservice/twilio-a6a/v1.0/sms";
+    "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-prod.e1-us-east-azure.choreoapis.dev/gich/twilioservice/twilio-a6a/v1.0/sms";
   try {
     const SendTwilioResponse = await fetch(SendTwilioApiUrl, {
       method: "POST",
@@ -21,9 +21,7 @@ export const performSendTwilio = async (token: string, fromMobile: string, messa
       const SendTwilioData = JSON.parse(responseData);
       console.log("decoupledtwilioapi", SendTwilioData);
       return SendTwilioData;
-    } else {
-      
-    }
+    } else { /* empty */ }
   } catch (error) {
     console.error("Error in twilio check:", error);
     throw error;
