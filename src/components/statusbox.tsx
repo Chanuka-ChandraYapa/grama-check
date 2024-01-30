@@ -47,38 +47,36 @@ const StatusBox: React.FC<StatusBoxProps> = ({
   // Define the click handler
   const handleDownloadClick = async () => {
     // Logic to download the certificate goes here
-    let getProfile = await getProfileData();
-    console.log("this is the profile data", getProfile)
+    await getProfileData();
+    console.log("this is the profile data", profileData)
     await generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
     console.log("After setting the data", profileData)
   }
 
   const getProfileData = async () => {
     console.log("Getting profile data");
-    (async (): Promise<void> => {
-      let getProfileDataResponse;
-      let getGramaProfileDataResponse;
-      try {
-        if (token != null) {
-          getProfileDataResponse = await performGetProfile(token, userId);
-          console.log("get profile data response: ", getProfileDataResponse);
-          setProfileData({
-            fullName: getProfileDataResponse.result.name,
-            phoneNumber: getProfileDataResponse.result.phone_no,
-            address: getProfileDataResponse.result.address,
-            gramaDivision: getProfileDataResponse.result.gramadevision,
-            nicNumber: getProfileDataResponse.result.id
-          })
+    let getProfileDataResponse;
+    let getGramaProfileDataResponse;
+    try {
+      if (token != null) {
+        getProfileDataResponse = await performGetProfile(token, userId);
+        console.log("get profile data response: ", getProfileDataResponse);
+        setProfileData({
+          fullName: getProfileDataResponse.result.name,
+          phoneNumber: getProfileDataResponse.result.phone_no,
+          address: getProfileDataResponse.result.address,
+          gramaDivision: getProfileDataResponse.result.gramadevision,
+          nicNumber: getProfileDataResponse.result.id
+        })
 
-          getGramaProfileDataResponse = await performGetProfile(token, decodedToken?.nic);
-          console.log("get grama profile data response: ", getGramaProfileDataResponse);
-          setGramaName(getGramaProfileDataResponse.result.name)
-        }
-      } catch (error) {
-        console.log("Error in getting profile data: ", error)
-        alert("error generating the pdf")
+        getGramaProfileDataResponse = await performGetProfile(token, decodedToken?.nic);
+        console.log("get grama profile data response: ", getGramaProfileDataResponse);
+        setGramaName(getGramaProfileDataResponse.result.name)
       }
-    })();
+    } catch (error) {
+      console.log("Error in getting profile data: ", error)
+      alert("error generating the pdf")
+    }
   }
   const handleApprove = async () => {
     try {
