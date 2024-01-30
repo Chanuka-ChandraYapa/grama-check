@@ -18,11 +18,11 @@ interface StatusBoxProps {
   serror: boolean;
 }
 const initialProfileData = {
-  fullName: "John Doe",
-  phoneNumber: "123-456-7890",
-  nicNumber: "123456789X",
-  gramaDivision: "Example Grama",
-  address: "123 Main Street, City",
+  fullName: "",
+  phoneNumber:"",
+  nicNumber: "",
+  gramaDivision: "",
+  address: "",
 };
 
 const StatusBox: React.FC<StatusBoxProps> = ({
@@ -49,7 +49,8 @@ const StatusBox: React.FC<StatusBoxProps> = ({
     // Logic to download the certificate goes here
     let getProfile = await getProfileData();
     console.log("this is the profile data", getProfile)
-    generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
+    await generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
+    console.log("After setting the data", profileData)
   }
 
   const getProfileData = async () => {
