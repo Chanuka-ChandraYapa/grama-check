@@ -18,11 +18,11 @@ interface StatusBoxProps {
   serror: boolean;
 }
 const initialProfileData = {
-  fullName: "John Doe",
-  phoneNumber: "123-456-7890",
-  nicNumber: "123456789X",
-  gramaDivision: "Example Grama",
-  address: "123 Main Street, City",
+  fullName: "",
+  phoneNumber:"",
+  nicNumber: "",
+  gramaDivision: "",
+  address: "",
 };
 
 const StatusBox: React.FC<StatusBoxProps> = ({
