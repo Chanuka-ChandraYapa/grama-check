@@ -12,7 +12,7 @@ export const performgetCertificate = async (token: string, gramadevision: string
         accept: "application/json",
       },
       body: JSON.stringify({
-        gramadevision,
+        "gramadivision":"2C"
       }),
     });
 
