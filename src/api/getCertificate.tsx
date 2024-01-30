@@ -1,4 +1,5 @@
 export const performgetCertificate = async (token: string, gramadevision: string) => {
+  console.log(gramadevision);
   const getCertificateApiUrl =
     // "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1/getGramaDevisionUser";
     // "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0/getGSApplication";
@@ -12,7 +13,7 @@ export const performgetCertificate = async (token: string, gramadevision: string
         accept: "application/json",
       },
       body: JSON.stringify({
-        "gramadivision":"2C"
+        "gramadevision":"2C"
       }),
     });
 
