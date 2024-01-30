@@ -9,7 +9,7 @@ interface UserDetails {
 
 const doc = new jsPDF("landscape");
 
-export const generatePDF = async (userdetails: UserDetails) => {
+export const generatePDF = (userdetails: UserDetails) => {
     // set the doc title to "Grama Nildhari Certificate"
     doc.setProperties({ title: "Grama Nildhari Certificate" });
     doc.setFontSize(40);

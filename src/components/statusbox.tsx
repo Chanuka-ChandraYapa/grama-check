@@ -18,11 +18,11 @@ interface StatusBoxProps {
   serror: boolean;
 }
 const initialProfileData = {
-  fullName: "",
-  phoneNumber:"",
-  nicNumber: "",
-  gramaDivision: "",
-  address: "",
+  fullName: "Joel Sathiyendra",
+  phoneNumber:"0771234123",
+  nicNumber: "123456789V",
+  gramaDivision: "171B Wellawatte",
+  address: "No. 123, Main Street, Colombo 03",
 };
 
 const StatusBox: React.FC<StatusBoxProps> = ({
@@ -39,7 +39,7 @@ const StatusBox: React.FC<StatusBoxProps> = ({
   const { certificateNo } = useParams<{ certificateNo: string }>();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(initialProfileData);
-  const [gramaName, setGramaName] = useState("Joel")
+  const [gramaName, setGramaName] = useState("Chanuka Chandrayapa")
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -49,7 +49,7 @@ const StatusBox: React.FC<StatusBoxProps> = ({
     // Logic to download the certificate goes here
     await getProfileData();
     console.log("this is the profile data", profileData)
-    await generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
+    generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
     console.log("After setting the data", profileData)
   }
 
