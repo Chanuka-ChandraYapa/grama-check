@@ -45,9 +45,10 @@ const StatusBox: React.FC<StatusBoxProps> = ({
     setIsExpanded(!isExpanded);
   };
   // Define the click handler
+  let getProfile;
   const handleDownloadClick = async () => {
     // Logic to download the certificate goes here
-    let getProfile = await getProfileData();
+    getProfile = await getProfileData();
     console.log("this is the profile data", getProfile)
     generatePDF({"user_name": profileData.fullName, "user_address": profileData.address, "grama_sevaka": profileData.gramaDivision, "grama_niladhari_name": gramaName});
     console.log("After setting the data", profileData)
