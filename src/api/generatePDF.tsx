@@ -7,9 +7,9 @@ interface UserDetails {
     grama_niladhari_name: string;
 }
 
-const doc = new jsPDF("landscape");
 
 export const generatePDF = (userdetails: UserDetails) => {
+    const doc = new jsPDF("landscape");
     // set the doc title to "Grama Nildhari Certificate"
     doc.setProperties({ title: "Grama Nildhari Certificate" });
     doc.setFontSize(40);
