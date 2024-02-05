@@ -9,6 +9,7 @@ declare global {
   interface Window {
     config: {
       check: string;
+      api:string
       // Add other properties if needed
     };
   }
