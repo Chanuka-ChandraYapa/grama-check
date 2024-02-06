@@ -17,12 +17,13 @@ const Help: React.FC = () => {
   const { signIn } = useAuthContext();
   const [serror, setSerror] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
 
 
   const handleSubmit = async () => {
     try {
-
+      setSuccess(false)
       setLoading(true)
       let sendSlack;
 
@@ -30,7 +31,8 @@ const Help: React.FC = () => {
         if (token !== null) {
           sendSlack = await performSendSlack(token, decodedToken?.nic, message);
           console.log("Slack Service Response:", sendSlack); 
-          setSerror(false)       
+          setSerror(false)  
+          setSuccess(true)     
         } else {
           console.error("Token is null");
           signIn()
@@ -156,6 +158,11 @@ const Help: React.FC = () => {
               </div>
             </form>
             {serror && (
+              <h1 className="my-4 text-red-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
+                Message Sent. An officer will contact you soon.
+              </h1>
+            )}
+            {success && (
               <h1 className="my-4 text-red-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
                 Message Sent. An officer will contact you soon.
               </h1>
