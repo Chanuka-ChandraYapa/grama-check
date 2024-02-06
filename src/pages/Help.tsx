@@ -163,7 +163,7 @@ const Help: React.FC = () => {
               </h1>
             )}
             {success && (
-              <h1 className="my-4 text-red-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
+              <h1 className="my-4 text-green-400 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-medium leading-tight text-center">
                 Message Sent. An officer will contact you soon.
               </h1>
             )}
