@@ -5,7 +5,7 @@ export const performGetProfile = async (
     const getProfileApiUrl =
       // "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0/getUser";
     //https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/gich/gramadataservice/endpoint-3000-197/v1.0
-      window.config.api + "/gich/gramadataservice/endpoint-3000-197/v1.0/getUser"
+      window.config.api + "/gramadataservice/endpoint-3000-197/v1.0/getUser"
     try {
       const getProfileResponse = await fetch(getProfileApiUrl, {
         method: "POST",
